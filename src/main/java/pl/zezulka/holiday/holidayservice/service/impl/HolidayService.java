@@ -58,7 +58,7 @@ public class HolidayService implements IHolidayService {
 			List<Holiday> country2Holidays) {
 
 		Optional<CommonHoliday> result = country1Holidays.stream()
-				.flatMap(i -> country2Holidays.stream().filter(j -> i.getDate().isEqual(j.getDate()))
+				.flatMap(i -> country2Holidays.stream().filter(j -> i.getDate().isEqual(j.getDate())).limit(1)
 						.map(j -> new CommonHoliday(j.getDate(), i.getName(), j.getName())))
 				.findFirst();
 
