@@ -15,7 +15,6 @@ import pl.zezulka.holiday.holidayservice.model.CommonHoliday;
 import pl.zezulka.holiday.holidayservice.model.Country;
 import pl.zezulka.holiday.holidayservice.model.Holiday;
 import pl.zezulka.holiday.holidayservice.service.IHolidayService;
-import pl.zezulka.holiday.holidayservice.util.HolidayUtils;
 
 /**
  * 
@@ -55,19 +54,16 @@ public class HolidayService implements IHolidayService {
 	}
 
 	@Override
-	public Optional<CommonHoliday> getCommonHoliday(List<Holiday> country1Holidays, List<Holiday> country2Holidays) {
-		Optional<LocalDate> commonDate = HolidayUtils.findFirstCommonDate(country1Holidays, country2Holidays);
+	public Optional<CommonHoliday> getFirstCommonHoliday(List<Holiday> country1Holidays,
+			List<Holiday> country2Holidays) {
 
-		if (commonDate.isPresent()) {
-			CommonHoliday holidayInfo = new CommonHoliday(commonDate.get(),
-					country1Holidays.stream().filter(x -> x.getDate().equals(commonDate.get())).findFirst().get()
-							.getName(),
-					country2Holidays.stream().filter(x -> x.getDate().equals(commonDate.get())).findFirst().get()
-							.getName());
-			return Optional.of(holidayInfo);
+		Optional<CommonHoliday> result = country1Holidays.stream()
+				.flatMap(i -> country2Holidays.stream().filter(j -> i.getDate().isEqual(j.getDate()))
+						.map(j -> new CommonHoliday(j.getDate(), i.getName(), j.getName())))
+				.findFirst();
 
-		}
-		return Optional.empty();
+		return result;
+
 	}
 
 }

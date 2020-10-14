@@ -22,6 +22,6 @@ public interface IHolidayService {
 
 	List<Holiday> getUpcommingHolidays(String countryCode, LocalDate date) throws HolidayClientException;
 
-	Optional<CommonHoliday> getCommonHoliday(List<Holiday> country1Holidays, List<Holiday> country2Holidays);
+	Optional<CommonHoliday> getFirstCommonHoliday(List<Holiday> country1Holidays, List<Holiday> country2Holidays);
 
 }

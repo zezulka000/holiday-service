@@ -60,7 +60,8 @@ public class HolidayController {
 		List<Holiday> country1Holidays = holidayService.getUpcommingHolidays(countryCode1, date);
 		List<Holiday> country2Holidays = holidayService.getUpcommingHolidays(countryCode2, date);
 
-		Optional<CommonHoliday> commonHoliday = holidayService.getCommonHoliday(country1Holidays, country2Holidays);
+		Optional<CommonHoliday> commonHoliday = holidayService.getFirstCommonHoliday(country1Holidays,
+				country2Holidays);
 
 		if (commonHoliday.isPresent()) {
 			return ResponseEntity.status(HttpStatus.OK).body(commonHoliday.get());

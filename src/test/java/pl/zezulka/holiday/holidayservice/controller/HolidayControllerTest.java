@@ -146,7 +146,7 @@ public class HolidayControllerTest {
 		Mockito.when(holidayService.getUpcommingHolidays(de.getCode(), LocalDate.of(2020, 10, 10)))
 				.thenReturn(deHolidays);
 
-		Mockito.when(holidayService.getCommonHoliday(deHolidays, plHolidays)).thenReturn(
+		Mockito.when(holidayService.getFirstCommonHoliday(deHolidays, plHolidays)).thenReturn(
 				Optional.of(new CommonHoliday(christmasDE.getDate(), christmasDE.getName(), christmasPL.getName())));
 
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();

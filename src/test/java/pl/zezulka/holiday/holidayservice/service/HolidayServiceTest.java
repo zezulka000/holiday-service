@@ -49,7 +49,7 @@ public class HolidayServiceTest {
 		List<Holiday> plHolidays = Arrays.asList(christmasPL, newYearPL, easterPL);
 		List<Holiday> deHolidays = Arrays.asList(allSaintsDE, christmasDE, newYearDE);
 
-		Optional<CommonHoliday> result = holidayService.getCommonHoliday(plHolidays, deHolidays);
+		Optional<CommonHoliday> result = holidayService.getFirstCommonHoliday(plHolidays, deHolidays);
 
 		Assertions.assertTrue(result.isPresent(), "Common holiday found");
 		Assertions.assertEquals(result.get(),
@@ -64,7 +64,7 @@ public class HolidayServiceTest {
 		List<Holiday> plHolidays = Arrays.asList(christmasPL, newYearPL, easterPL);
 		List<Holiday> deHolidays = Arrays.asList(allSaintsDE);
 
-		Optional<CommonHoliday> result = holidayService.getCommonHoliday(plHolidays, deHolidays);
+		Optional<CommonHoliday> result = holidayService.getFirstCommonHoliday(plHolidays, deHolidays);
 
 		Assertions.assertFalse(result.isPresent(), "Common holiday should be not found");
 
