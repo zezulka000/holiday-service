@@ -3,7 +3,7 @@
 Holiday Service developed with Spring Boot.
 
 Service is providing next shared holiday for provided date and two country codes.
-Holidays are searched only to one year ahead.
+Holidays are searched only in provided year.
 
 ## External Holiday Api
 

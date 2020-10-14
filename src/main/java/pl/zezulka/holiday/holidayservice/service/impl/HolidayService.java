@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -40,17 +39,13 @@ public class HolidayService implements IHolidayService {
 	@Override
 	public List<Holiday> getUpcommingHolidays(String countryCode, LocalDate date) throws HolidayClientException {
 
-		LocalDate futureDate = date.plusYears(1);
-
 		List<Holiday> currentYearHolidays = holidayClient.getHolidays(countryCode, date.getYear());
-		List<Holiday> nextYearHolidays = holidayClient.getHolidays(countryCode, futureDate.getYear());
 
-		List<Holiday> holidays = Stream
-				.concat(currentYearHolidays.stream().filter(h -> !h.getDate().isBefore(date)),
-						nextYearHolidays.stream().filter(h -> h.getDate().isBefore(futureDate)))
+		List<Holiday> upcommingHolidays = currentYearHolidays.stream().filter(h -> !h.getDate().isBefore(date))
 				.collect(Collectors.toList());
 
-		return holidays;
+		return upcommingHolidays;
+
 	}
 
 	@Override
